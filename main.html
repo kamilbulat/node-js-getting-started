@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				var zakres = prompt("podaj zakres liczb (1-10)")
+				var liczba1
+				var liczba2
+				var good = 0
+				var bad = 0
+
+				setInterval(function(){
+					$("#wynik").focus()
+				},1)
+				
+				dzialanie()
+
+				function dzialanie(){
+					$("#wynik").val("")
+					//zmiana liczb
+					if(zakres>10){
+						liczba1 = Math.floor(Math.random() * zakres) + 1  
+					}else{
+						liczba1 = Math.floor(Math.random() * 10) + 1  
+					}
+					
+					liczba2 = Math.floor(Math.random() * zakres) + 1  
+					$("#dzial").text(liczba1 + " x " + liczba2)
+				}
+
+				$("#wynik").keyup(function(event){
+				    if(event.keyCode == 13){
+				        $("#sprawdz").click();
+				    }
+				});
+
+				$("#sprawdz").on("click", function() {
+					if($("#wynik").val() == liczba1 * liczba2){
+						$("#kom").text("DOBRZE!")
+						$("#kom").css("color","green")
+						good++
+						$("#dobre").text(good)
+					}else{
+						$("#kom").text("ŹLE, wynik to " + liczba1 * liczba2);
+						$("#kom").css("color","red")
+						bad++
+						$("#zle").text(bad)
+					}
+					if(bad >= 10 || good >= 10){
+						$("#dobre").css("margin-left","44%")
+					}
+					dzialanie()
+				})
+			})
+		</script>
+		<style>
+			body{
+				font-family: Tahoma;
+				background-color: lightblue; 
+			}
+
+			#dzial{
+				font-size: 100px;
+				width: 100%;
+				text-align: center;
+				margin-top: 3%;
+			}
+
+			#wynik{
+				display: block;
+				width: 10%;
+				height: 20%;
+				margin-left: 45%;
+				margin-top: 3%;
+				font-size: 80px;
+			}
+
+			#sprawdz{
+				width: 60%;
+				height: 20%;
+				margin-left: 20%;
+				margin-top: 5%;
+				font-size: 40px;
+				display: none;
+			}
+
+			#kom{
+				width: 100%;
+				text-align: center;
+				font-size: 60px;
+				margin-top: 5%;
+			}
+
+			#licznik{
+				display: block;
+				font-size: 70px;
+				margin-top: 3%;
+				font-weight: bold;
+			}
+
+			#dobre{
+				float: left;
+				color: green;
+				margin-left: 45.5%;
+			}
+
+			#zle{
+				float: left;
+				color: red;
+			}
+			#slash{
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="kom">ZACZYNAMY!</div>
+		<div id="dzial"></div>
+		<input type="text" id="wynik" autofocus="autofocus" />
+		<input type="submit" id="sprawdz" value="sprawdz" />
+		<div id="licznik">
+			<div id="dobre" value="0">0</div>
+			<div id="slash">/</div>
+			<div id="zle" value="0">0</div>
+		</div>
+	</body>
+</html>
